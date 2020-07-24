@@ -1,0 +1,11 @@
+# sample CODEOWNERS file at the root of the master branch
+# Here's a global owner
+# no more global owner. * @JimBlizzard
+
+# here's one for /poi files
+/apis/poi @JimBlizzard
+
+# change here.
+
+# set the owner for the /trips api
+/apis/trips @jimmyblizzard

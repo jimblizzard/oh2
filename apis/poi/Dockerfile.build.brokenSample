@@ -1,0 +1,20 @@
+#Patterned after https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/test/publish-test-results?view=azure-devops&tabs=classic#docker
+FROM microsoft/dotnet:2.1-sdk
+RUN mkdir src
+WORKDIR /src
+RUN echo $PWD
+RUN ls
+# copy the contents of the agent working directory on host to workdir in container 
+COPY . ./ 
+RUN echo $PWD
+RUN ls 
+# dotnet commands to build, test, and publish
+RUN dotnet restore 
+RUN dotnet build -c Release
+WORKDIR /src/tests/UnitTests
+RUN ls
+RUN dotnet test tests/UnitTests/UnitTests.csproj -c Release --logger "trx;LogFileName=testresults.trx"
+RUN dotnet publish -c Release -o out 
+RUN echo $PWD
+RUN ls 
+#ENTRYPOINT dotnet 
